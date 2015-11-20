@@ -44,25 +44,45 @@ def bay_stored_in(item)
   bay
 end
 
+
 ### MULTIPLE BAYS/ITEMS
 
 def items_in_bays(bays)
-  items = ""
-  bays.each do |bay|
-    items << item_at_bay(bay)
-    items << ", "
-  end
-  items = items.chop.chop
+  items = []
+  bays.each { |bay| items << item_at_bay(bay) }
+  items
 end
 
 def bays_stored_in(items)
-  bays = ""
-  items.each do |item|
-    bays << bay_stored_in(item)
-    bays << ", "
-  end
-  bays = bays.chop.chop
+  bays = []
+  items.each { |item| bays << bay_stored_in(item) }
+  bays
 end
 
 
 ### ADVANCED
+def furthest_distance(bay_numbers)
+  positions = []
+  bay_numbers.each do |bay|
+    positions << WAREHOUSE.index {|h| h[:bay] == bay}
+  end
+  distance = positions.max - positions.min
+end
+
+
+def bay_order(bay_numbers)
+  positions = []
+  order = {}
+  visit_order = []
+  bay_numbers.each do |bay|
+    position = WAREHOUSE.index {|h| h[:bay] == bay}
+    positions << position
+    order[position] = bay
+  end
+  positions.sort!
+  positions.each { |p| visit_order << order[p]}
+  visit_order
+end
+
+
+
