@@ -33,30 +33,35 @@ WAREHOUSE = [
 
 ### SINGLE BAY/ITEM
 def item_at_bay(bay) 
-  item = ""
-  WAREHOUSE.each {|storage| item = storage[:item] if storage[:bay] == bay}
-  item
+  # item = ""
+  # WAREHOUSE.each {|storage| item = storage[:item] if storage[:bay] == bay}
+  # item
+  WAREHOUSE.find {|storage| storage[:bay]==bay}[:item]
 end
 
 def bay_stored_in(item)
-  bay = ""
-  WAREHOUSE.each {|storage| bay = storage[:bay] if storage[:item] == item}
-  bay
+  # bay = ""
+  # WAREHOUSE.each {|storage| bay = storage[:bay] if storage[:item] == item}
+  # bay
+  WAREHOUSE.find {|storage| storage[:item]==item}[:bay]
+
 end
 
 
 ### MULTIPLE BAYS/ITEMS
 
 def items_in_bays(bays)
-  items = []
-  bays.each { |bay| items << item_at_bay(bay) }
-  items
+  # items = []
+  # bays.each { |bay| items << item_at_bay(bay) }
+  # items
+  bays.map { |bay| item_at_bay(bay) } 
 end
 
 def bays_stored_in(items)
-  bays = []
-  items.each { |item| bays << bay_stored_in(item) }
-  bays
+  # bays = []
+  # items.each { |item| bays << bay_stored_in(item) }
+  # bays
+  items.map { |item| bay_stored_in(item) }
 end
 
 
@@ -66,22 +71,21 @@ def furthest_distance(bay_numbers)
   bay_numbers.each do |bay|
     positions << WAREHOUSE.index {|h| h[:bay] == bay}
   end
-  distance = positions.max - positions.min
+  positions.max - positions.min
 end
 
 
 def bay_order(bay_numbers)
   positions = []
   order = {}
-  visit_order = []
+  # visit_order = []
   bay_numbers.each do |bay|
     position = WAREHOUSE.index {|h| h[:bay] == bay}
     positions << position
     order[position] = bay
   end
-  positions.sort!
-  positions.each { |p| visit_order << order[p]}
-  visit_order
+  positions.sort.map { |p| order[p]}
+  # visit_order
 end
 
 

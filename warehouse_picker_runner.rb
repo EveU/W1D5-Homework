@@ -1,5 +1,7 @@
 require_relative "./warehouse_picker_functions"
 
+puts "\n"
+
 #### SINGLE BAY/ITEM
 ##Given a bay number, return the item stored in that bay
 
@@ -50,14 +52,14 @@ puts "\n"
 ##Ex2 - b3, c7, c9, a3. picture frame, paint brush, shoe lace, blouse. 15.
 
 
-# puts "Which bays would you like to look in? Please separate each item with a comma."
+# puts "Which bays would you like to look in? Please separate each bay with a comma."
 # given_bays = gets.chomp.split(",")
 
 # given_bays = ["b5", "b10", "b6"]
 given_bays = ["b3", "c7", "c9", "a3"]
 stored_items = items_in_bays(given_bays)
 distance = furthest_distance(given_bays)
-puts "The items you requested are #{stored_items.join(", ")}, respectively. They are #{distance} bays apart."
+puts "The items in bays #{given_bays.join(", ")} are #{stored_items.join(", ")}, respectively. They are #{distance} bays apart."
 puts "\n"
 
 
